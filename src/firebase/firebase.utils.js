@@ -33,22 +33,26 @@ export const getUsers = async () => {
     getUsersSnapshot.forEach(doc => {
         users.push({...doc.data()})
     })
-    console.log(users)
+
+    return users
 }
 
 export const getAccounts = async () => {
     const accountsRef = firestore.collection('accounts')
     const getAccountsSnapshot = await accountsRef.get()
-    let accounts = []
+    let accounts = {}
     
     getAccountsSnapshot.forEach(doc => {
-        accounts.push({
-            userId: doc.id,
-            ...doc.data()
-        })
+        accounts = {
+            ...accounts,
+            [doc.id] : {
+                ...doc.data()
+            }
+            
+        }
     })
 
-    console.log(accounts)
+    console.log(accounts) 
 }
 
 firebase.initializeApp(config)
