@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// import {ACCOUNTS} from './data'
+// import {USERS} from './data'
+// import {addCollectionsAndDocuments} from './firebase/firebase.utils'
+import {getUsers} from './firebase/firebase.utils'
+import {getAccounts} from './firebase/firebase.utils'
+
+
 function App() {
+  // useEffect(() => {
+  //   addCollectionsAndDocuments('accounts', ACCOUNTS)
+  //   addCollectionsAndDocuments('users', USERS)
+  // }, [])
+
+  useEffect(() => {
+    getUsers()
+    getAccounts()
+  })
   return (
     <div className="App">
       <header className="App-header">
