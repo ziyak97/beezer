@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+h1 {
+  color: #0ccac4;
+  font-size: 3rem;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

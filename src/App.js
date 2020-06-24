@@ -8,12 +8,15 @@ import './App.css'
 import { getUsers } from './firebase/firebase.utils'
 import { getAccounts } from './firebase/firebase.utils'
 import UserList from './components/user-list/user-list.component'
+import SearchBox from './components/search-box/search-box.component'
 
 const App = () => {
 
   const [users, setUsers] = useState([])
   const [accounts, setAccounts] = useState({})
   const [usersAndAccounts, setUsersAndAccounts] = useState([])
+
+  const [searchField, setSearchField] = useState('')
 
   // Adds data to firebase when called
   // useEffect(() => {
@@ -51,14 +54,23 @@ const App = () => {
     setUsersAndAccounts(arr)
   }, [users, accounts])
 
+  const onSearchChange = event => {
+    setSearchField(event.target.value)
+  }
 
+  const filteredUsersAndAccounts = usersAndAccounts.filter(userAndAccount => 
+    userAndAccount.userName.toLowerCase().includes(searchField.toLowerCase())
+  )
 
   return (
     <div className="App">
-
+      <h1>Beezer by Ziyak</h1>
+      <SearchBox
+        onSearchChange={onSearchChange}
+      />
       <UserList
-        usersAndAccounts={usersAndAccounts}
-       />
+        usersAndAccounts={filteredUsersAndAccounts}
+      />
 
     </div>
   )
