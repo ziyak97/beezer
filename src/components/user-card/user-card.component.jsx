@@ -17,7 +17,10 @@ const UserCard = ({ userAccount }) => {
                     <p>
                         {index + 1}. {userAccount.apps[app].title}
                     </p>
-                    <StarRating />
+                    <StarRating
+                        account={userAccount.account}
+                        appName={app}
+                     />
                 </div>
             ))}
         </div>

@@ -1,8 +1,26 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import StarRatingComponent from 'react-star-rating-component'
+
+import {setAppRating, getAppRating} from '../../firebase/firebase.utils'
  
-const StarRating = () => {
+const StarRating = ({account, appName}) => {
   const [rating, setRating] = useState(0)
+
+  useEffect(() => {
+    if(rating) {
+      setAppRating(account, appName, rating)
+    }
+  }, [account, appName, rating])
+
+  useEffect(() => {
+    const asyncRating = async () => {
+      const getRating = await getAppRating(account, appName)
+      setRating(getRating)
+    }
+
+    asyncRating()
+   
+  }, [account, appName])
  
   const onStarClick = (nextValue, prevValue, name) => {
     setRating(nextValue)
