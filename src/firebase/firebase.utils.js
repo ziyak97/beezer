@@ -48,11 +48,28 @@ export const getAccounts = async () => {
             [doc.id] : {
                 ...doc.data()
             }
-            
         }
     })
 
-    console.log(accounts) 
+    return accounts
+}
+
+export const setAppRating = async (account, title, rating) => {
+    const accountsRef = firestore.collection('accounts').doc(account)
+    const getAccountsSnapshot = await accountsRef.get()
+    await accountsRef.set({
+        ...getAccountsSnapshot.data(),
+        apps: {
+            cuckoosnest: {
+                title,
+                rating
+            }
+        }
+    })
+
+    
+    
+ 
 }
 
 firebase.initializeApp(config)
